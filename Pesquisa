@@ -1,0 +1,176 @@
+*1. Consultar veículos por empresa, marca, modelo, intervalo de quilometragem rodada, estado de conservação;
+o Exibir lista de veículos e permitir visualizar o dado do veiculo selecionado.
+o Exibir as ordens de tráficos do veiculo
+
+Salvar veiculo:
+http://localhost:8080/api/veiculo/salvarVeiculo
+{
+	"marca": "FIAT",
+        "modelo": "Argo",
+        "km": 18863,
+        "placa": "DFD8564",
+        "cor": "Branca",
+        "anoFabicacao": 2020,
+        "categoriaVeiculo": "PASSEIO",
+        "tipoCombustivel": "FLEX",
+        "estadoConservacao": "NOVO"
+}
+
+Editar veiculo
+http://localhost:8080/api/veiculo/editarVeiculo
+{
+    "id": 3,
+    "marca": "FIAT",
+    "modelo": "Argo",
+    "km": 23202,
+    "placa": "DFD8564",
+    "cor": "Branca",
+    "anoFabicacao": 2020,
+    "categoriaVeiculo": "PASSEIO",
+    "tipoCombustivel": "FLEX",
+    "estadoConservacao": "NOVO"
+}
+
+Listar todos os veiculos
+http://localhost:8080/api/veiculo/veiculos
+
+Listar veiculo por marca
+http://localhost:8080/api/veiculo/buscarVeiculoMarca/CHEVROLET
+
+Listar veiculo por modelo
+http://localhost:8080/api/veiculo/buscarVeiculoModelo/S10
+
+Listar ordens de trafego do veiculo
+http://localhost:8080/api/veiculo/buscarOrdemTrafegoVeiculo/2
+
+Listar veiculo por id
+http://localhost:8080/api/veiculo/buscarVeiculoId/2
+
+Deletar veiculo
+http://localhost:8080/api/veiculo/deletarVeiculo/3
+
+2. Consultar condutor por CNH, nome e outros o exibir dados do condutor;
+o exibir as ordens de tráficos do condutor
+
+Salvar Contudor
+http://localhost:8080/api/condutor/salvarCondutor
+{
+	"cpf": "56326514523",
+	"matricula": "6321454125",
+	"nome": "Maria",
+	"cnh": {
+	 	    	"categoriaCNH": "E",
+	            "numeroCNH": 253214,
+            	"validade": "2020-04-01"
+    },
+    
+	"endereco":{
+                	"bairro": "Plano Diretor sul",
+                	"cidade": "Porto Nacional",
+                	"complemento": "Qi 14",
+                	"numero": 14
+    }
+}
+
+Editar condutor
+http://localhost:8080/api/condutor/editarCondutor
+{
+    "id": 40,
+    "nome": "Maria Aparecida",
+    "cnh": {
+        "id": 30,
+        "numeroCNH": 253214,
+        "categoriaCNH": "E",
+        "validade": "2020-04-01T00:00:00.000+0000"
+    },
+    "endereco": {
+        "id": 40,
+        "cidade": "Porto Nacional",
+        "bairro": "Plano Diretor sul",
+        "numero": 14,
+        "complemento": "Qi 514"
+    },
+    "cpf": "56326514523",
+    "matricula": "6321454125"
+}
+
+Deletar condutor
+http://localhost:8080/api/condutor/deletarCondutor/38
+
+Lista de condutores
+http://localhost:8080/api/condutor/condutores
+
+Lista condutores por categoria cnh
+http://localhost:8080/api/condutor/buscaCondutorCategoriaCnh/B
+
+Lista condutor por nome 
+http://localhost:8080/api/condutor/buscaCondutorNome/Roberto
+
+Lista ordens trafego condutor
+http://localhost:8080/api/condutor/buscarOrdemTrafegoVeiculo/25
+
+
+3. Consultar as ordens de tráficos por veiculo, condutor, por data, origem, destino .
+o Exibir dados da ordem de trafico*/
+
+Salvar orden de trafego
+http://localhost:8080/api/ordemTrefego/salvarOrdemTrafego/37/2
+
+{
+  "origem":{
+            	"bairro": "Plano Diretor Norte",
+                "cidade": "Palmas",
+                "complemento": "Qi 14",
+                "numero": 14
+    },
+    "destino":{
+            	"bairro": "Plano Diretor sul",
+                "cidade": "Palmas",
+                "complemento": "Qi 14",
+                "numero": 14
+    },
+    "dataHoraViagem": "2020-06-04",
+    "status": "Andamento",
+    "distanciaPercorrer": 1300
+}
+	
+Editar ordem de trafego
+http://localhost:8080/api/ordemTrefego/editarOrdemTrafego/37/2
+{
+  "id": 6,
+  "origem":{	"id": 42,
+            	"bairro": "Plano Diretor Norte",
+                "cidade": "Palmas",
+                "complemento": "Qi 14",
+                "numero": 14
+    },
+    "destino":{
+    			"id": 41,
+            	"bairro": "Plano Diretor sul",
+                "cidade": "Palmas",
+                "complemento": "Qi 14",
+                "numero": 14
+    },
+    "dataHoraViagem": "2020-09-04",
+    "status": "Andamento",
+    "distanciaPercorrer": 1700
+}
+	
+Deletar ordem de trafego
+http://localhost:8080/api/ordemTrefego/deletarOrdemTrafego/1
+
+Listar todas as ordens de trafego
+http://localhost:8080/api/ordemTrefego/ordensTrafego
+
+listar ordem trafego por origem
+http://localhost:8080/api/ordemTrefego/buscarOrdemTrafegoOrigem/Palmas
+
+listar ordem trafego por destino
+http://localhost:8080/api/ordemTrefego/buscarOrdemTrafegoDestino/Palmas
+
+listar ordem trafego por data
+http://localhost:8080/api/ordemTrefego/buscarOrdemTrafegoData/2020-06-04       
+        
+               
+        
+
