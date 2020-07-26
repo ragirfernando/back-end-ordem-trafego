@@ -1,15 +1,15 @@
 package com.ordemtrafego.domain;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(exclude={"cep", "logradouro", "complemento", "bairro", "localidade", "uf"})
+@EqualsAndHashCode(exclude={"cep", "logradouro", "complemento", "bairro", "localidade", "uf" , "numero"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -26,7 +26,12 @@ public class Endereco implements Serializable {
     @NotNull
     private String logradouro;
 
+    @NotNull
     private String complemento;
+
+    @NotNull
+    private Integer numero;
+
 
     @NotNull
     private String bairro;

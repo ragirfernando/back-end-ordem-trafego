@@ -1,47 +1,54 @@
 Inserir Contudor
 http://localhost:8080/api/condutor/inserirCondutor
 {
-	"cpf": "56326514523",
-	"matricula": "6321454125",
-	"nome": "Maria",
-	"cnh": {
-	 	    	"categoriaCNH": "E",
-	            "numeroCNH": 253214,
-            	"validade": "2020-04-01"
-    },
-
-	"endereco":{
-                	"bairro": "Plano Diretor sul",
-                	"cidade": "Porto Nacional",
-                	"complemento": "Qi 14",
-                	"numero": 14
-    }
+  "nome": "Fabio",
+  "cnh": {
+    "numeroCNH": 253214,
+    "categoriaCNH": "E",
+    "validade": "2020-04-03"
+  },
+  "endereco": {
+    "cep": 77024682,
+   "logradouro": "1304 Sul Rua 18",
+    "complemento": "Qi 14",
+  	"bairro": "Plano Diretor Sul",
+    "localidade": "Palmas",
+		"numero": 10,
+    "uf": "TO"
+  },
+  "cpf": "56326514523",
+  "matricula": "6321454125"
 }
-
-Editar condutor
-http://localhost:8080/api/condutor/editarCondutor
-{
-    "id": 40,
-    "nome": "Maria Aparecida",
-    "cnh": {
-        "id": 30,
-        "numeroCNH": 253214,
-        "categoriaCNH": "E",
-        "validade": "2020-04-01T00:00:00.000+0000"
-    },
-    "endereco": {
-        "id": 40,
-        "cidade": "Porto Nacional",
-        "bairro": "Plano Diretor sul",
-        "numero": 14,
-        "complemento": "Qi 514"
-    },
-    "cpf": "56326514523",
-    "matricula": "6321454125"
-}
+Buscar Condutor por id
+http://localhost:8080/api/condutor/buscarCondutorId/2
 
 Deletar condutor
-http://localhost:8080/api/condutor/deletarCondutor/38
+http://localhost:8080/api/condutor/deletarCondutorId/1
+
+Atualizar condutor
+http://localhost:8080/api/condutor/atualizarCondutor
+{
+  "id": 2,
+  "nome": "Viado",
+  "cnh": {
+    "id": 2,
+    "numeroCNH": 253214,
+    "categoriaCNH": "A",
+    "validade": "2020-04-03"
+  },
+  "endereco": {
+    "id": 2,
+    "cep": "77024682",
+    "logradouro": "1204 Sul Rua 18",
+    "complemento": "Qi 14",
+    "numero": 10,
+    "bairro": "Plano Diretor Sul",
+    "localidade": "Palmas",
+    "uf": "TO"
+  },
+  "cpf": "56326514523",
+  "matricula": "6321454125"
+}
 
 Lista de condutores
 http://localhost:8080/api/condutor/condutores
