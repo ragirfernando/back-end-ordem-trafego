@@ -2,7 +2,6 @@ package com.ordemtrafego.controller;
 
 import com.ordemtrafego.domain.OrdemTrafego;
 import com.ordemtrafego.domain.Veiculo;
-import com.ordemtrafego.error.ResourceNorFoundExcepition;
 import com.ordemtrafego.repository.OrdemTrafegoRepository;
 import com.ordemtrafego.repository.VeiculoRepository;
 import io.swagger.annotations.Api;
@@ -49,9 +48,7 @@ public class VeiculoController {
     @ApiOperation(value = "Lista todos os veículos.")
     public List<Veiculo> listarVeiculos() {
         veiculos = veiculoRepository.listaVeiculos();
-        if (veiculos.isEmpty()){
-            throw new  ResourceNorFoundExcepition("Não tem veículo cadastrado");
-        }
+
         return veiculos;
     }
 

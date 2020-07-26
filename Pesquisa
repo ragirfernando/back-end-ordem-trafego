@@ -1,6 +1,66 @@
-*1. Consultar veículos por empresa, marca, modelo, intervalo de quilometragem rodada, estado de conservação;
-o Exibir lista de veículos e permitir visualizar o dado do veiculo selecionado.
-o Exibir as ordens de tráficos do veiculo
+Inserir Contudor
+http://localhost:8080/api/condutor/inserirCondutor
+{
+	"cpf": "56326514523",
+	"matricula": "6321454125",
+	"nome": "Maria",
+	"cnh": {
+	 	    	"categoriaCNH": "E",
+	            "numeroCNH": 253214,
+            	"validade": "2020-04-01"
+    },
+
+	"endereco":{
+                	"bairro": "Plano Diretor sul",
+                	"cidade": "Porto Nacional",
+                	"complemento": "Qi 14",
+                	"numero": 14
+    }
+}
+
+Editar condutor
+http://localhost:8080/api/condutor/editarCondutor
+{
+    "id": 40,
+    "nome": "Maria Aparecida",
+    "cnh": {
+        "id": 30,
+        "numeroCNH": 253214,
+        "categoriaCNH": "E",
+        "validade": "2020-04-01T00:00:00.000+0000"
+    },
+    "endereco": {
+        "id": 40,
+        "cidade": "Porto Nacional",
+        "bairro": "Plano Diretor sul",
+        "numero": 14,
+        "complemento": "Qi 514"
+    },
+    "cpf": "56326514523",
+    "matricula": "6321454125"
+}
+
+Deletar condutor
+http://localhost:8080/api/condutor/deletarCondutor/38
+
+Lista de condutores
+http://localhost:8080/api/condutor/condutores
+
+Buscar condutores por categoria cnh
+http://localhost:8080/api/condutor/buscarCondutorCategoriaCnh/B
+
+Buscar condutor por nome
+http://localhost:8080/api/condutor/buscarCondutorNome/Roberto
+
+Buscar todas as ordens de tráfego que esta relacionada com o condutor, passando o id do condutor.
+http://localhost:8080/api/condutor/buscarOrdemTrafegoVeiculo/25
+
+
+
+
+
+
+
 
 Salvar veiculo:
 http://localhost:8080/api/veiculo/salvarVeiculo
@@ -49,65 +109,6 @@ http://localhost:8080/api/veiculo/buscarVeiculoId/2
 Deletar veiculo
 http://localhost:8080/api/veiculo/deletarVeiculo/3
 
-2. Consultar condutor por CNH, nome e outros o exibir dados do condutor;
-o exibir as ordens de tráficos do condutor
-
-Salvar Contudor
-http://localhost:8080/api/condutor/salvarCondutor
-{
-	"cpf": "56326514523",
-	"matricula": "6321454125",
-	"nome": "Maria",
-	"cnh": {
-	 	    	"categoriaCNH": "E",
-	            "numeroCNH": 253214,
-            	"validade": "2020-04-01"
-    },
-    
-	"endereco":{
-                	"bairro": "Plano Diretor sul",
-                	"cidade": "Porto Nacional",
-                	"complemento": "Qi 14",
-                	"numero": 14
-    }
-}
-
-Editar condutor
-http://localhost:8080/api/condutor/editarCondutor
-{
-    "id": 40,
-    "nome": "Maria Aparecida",
-    "cnh": {
-        "id": 30,
-        "numeroCNH": 253214,
-        "categoriaCNH": "E",
-        "validade": "2020-04-01T00:00:00.000+0000"
-    },
-    "endereco": {
-        "id": 40,
-        "cidade": "Porto Nacional",
-        "bairro": "Plano Diretor sul",
-        "numero": 14,
-        "complemento": "Qi 514"
-    },
-    "cpf": "56326514523",
-    "matricula": "6321454125"
-}
-
-Deletar condutor
-http://localhost:8080/api/condutor/deletarCondutor/38
-
-Lista de condutores
-http://localhost:8080/api/condutor/condutores
-
-Lista condutores por categoria cnh
-http://localhost:8080/api/condutor/buscaCondutorCategoriaCnh/B
-
-Lista condutor por nome 
-http://localhost:8080/api/condutor/buscaCondutorNome/Roberto
-
-Lista ordens trafego condutor
-http://localhost:8080/api/condutor/buscarOrdemTrafegoVeiculo/25
 
 
 3. Consultar as ordens de tráficos por veiculo, condutor, por data, origem, destino .
