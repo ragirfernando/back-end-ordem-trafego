@@ -4,11 +4,15 @@ import com.ordemtrafego.domain.OrdemTrafego;
 import com.ordemtrafego.domain.Veiculo;
 import com.ordemtrafego.repository.OrdemTrafegoRepository;
 import com.ordemtrafego.repository.VeiculoRepository;
+import com.ordemtrafego.service.VeiculoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -21,70 +25,86 @@ public class VeiculoController {
     VeiculoRepository veiculoRepository;
 
     @Autowired
+    private VeiculoService veiculoService;
+
+    @Autowired
     OrdemTrafegoRepository ordemTrafegoRepository;
-    List<Veiculo> veiculos;
+    private List<Veiculo> veiculoList;
+    private Veiculo veiculo;
 
-    @PostMapping("/veiculo/salvarVeiculo")
-    @ApiOperation(value = "Salva um veículo.")
-    public Veiculo salvarVeiculo(@RequestBody Veiculo veiculo) {
-        return veiculoRepository.save(veiculo);
+    @PostMapping("/veiculo/inserirVeiculo")
+    @ApiOperation(value = "Inserir um veículo.")
+    public ResponseEntity<Veiculo> inserirVeiculo(@RequestBody Veiculo veiculo) {
+        veiculo = veiculoService.inserirVeiculo(veiculo);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(veiculo.getId()).toUri();
+        return ResponseEntity.created(uri).body(veiculo);
     }
 
-    @PutMapping("/veiculo/editarVeiculo")
-    @ApiOperation(value = "Editar veículo.")
-    public Veiculo editarVeiculo(@RequestBody Veiculo veiculo) {
-        return veiculoRepository.save(veiculo);
+    @PutMapping("/veiculo/atualizarVeiculo")
+    @ApiOperation(value = "Atualizar veículo.")
+    public ResponseEntity<Veiculo> atualizarVeiculo(@RequestBody Veiculo veiculo) {
+        veiculo = veiculoService.atualizarVeiculo(veiculo);
+        return ResponseEntity.ok().body(veiculo);
     }
 
-    @DeleteMapping("/veiculo/deletarVeiculo")
+    @DeleteMapping("/veiculo/deletarVeiculo/{id}")
     @ApiOperation(value = "Deletar veículo por Id.")
-    public String deletarVeiculoPorId(@RequestBody Veiculo veiculo){
-        Integer id = veiculo.getId();
-        veiculoRepository.deleteById(id);
+    public String deletarVeiculoPorId(@PathVariable Integer id){
+        veiculoService.deletarVeiculo(id);
         return "Veiculo excluido";
     }
 
     @GetMapping("/veiculo/veiculos")
-    @ApiOperation(value = "Lista todos os veículos.")
-    public List<Veiculo> listarVeiculos() {
-        veiculos = veiculoRepository.listaVeiculos();
-
-        return veiculos;
+    @ApiOperation(value = "Listar todos os veículos.")
+    public ResponseEntity<List<Veiculo>> listarVeiculos() {
+        List<Veiculo> veiculos = veiculoService.listarVeiculos();
+        return ResponseEntity.ok().body(veiculos);
     }
 
-    @GetMapping("/veiculo/buscarVeiculoMarca/{marca}")
-    @ApiOperation(value = "lista veículos por marca.")
-    public List<Veiculo> buscarVeliculoMarca(@PathVariable(value = "marca") String marca) {
-        return veiculoRepository.buscarVeiculoMarca(marca);
+    @GetMapping("/veiculo/listarVeiculosMarca/{marca}")
+    @ApiOperation(value = "listar veículos por marca.")
+    public ResponseEntity<List<Veiculo>> listarVeliculosMarca(@PathVariable(value = "marca") String marca) {
+        List<Veiculo> veiculos;
+        veiculos = veiculoService.listarVeiculosMarca(marca);
+        return ResponseEntity.ok().body(veiculos);
     }
+
+    @GetMapping("/veiculo/listarVeiculosModelo/{modelo}")
+    @ApiOperation(value = "Lista veículos por modelo.")
+    public ResponseEntity<List<Veiculo>> listarVeiculosModelo(@PathVariable(value = "modelo") String modelo) {
+        List<Veiculo> veiculos;
+        veiculos = veiculoService.listarVeiculosModelo(modelo);
+        return ResponseEntity.ok().body(veiculos);
+    }
+
 
     @GetMapping("/veiculo/buscarVeiculoId/{id}")
-    @ApiOperation(value = "Lista um veículo por Id.")
-    public Veiculo buscarVeliculoId(@PathVariable(value = "id") Integer id) {
-        return veiculoRepository.buscarVeiculo(id);
+    @ApiOperation(value = "Buscar veículo por Id.")
+    public ResponseEntity<Veiculo> buscarVeiculoId(@PathVariable(value = "id") Integer id) {
+        Veiculo veiculo;
+        veiculo = veiculoService.buscarVeiculoId(id);
+        return ResponseEntity.ok().body(veiculo);
     }
 
-    @GetMapping("/veiculo/buscarVeiculoModelo/{modelo}")
-    @ApiOperation(value = "Lista veículos por modelo.")
-    public List<Veiculo> buscarVeiculoModelo(@PathVariable(value = "modelo") String modelo) {
-        return veiculoRepository.buscarVeiculoModelo(modelo);
+    @GetMapping("/veiculo/listarVeiculosEstadoConservacao/{estadoConservacao}")
+    @ApiOperation(value = "Listar veículos por estado de conservação.")
+    public ResponseEntity<List<Veiculo>> listarVeiculosEstadoConservacao(@PathVariable(value = "estadoConservacao") String estadoConservacao) {
+        List<Veiculo> veiculos;
+        veiculos = veiculoService.listarVeiculosEstadoConservacao(estadoConservacao);
+        return ResponseEntity.ok().body(veiculos);
     }
 
-    @GetMapping("/veiculo/buscarVeiculoeEstadoConservacao/{estadoConservacao}")
-    @ApiOperation(value = "Lista veículos por estado de conservação.")
-    public List<Veiculo> buscarVeiculoEstadoConservacao(@PathVariable(value = "estadoConservacao") String estadoConservacao) {
-        return veiculoRepository.buscarVeiculoeEtadoConservacao(estadoConservacao);
-    }
-
-    @GetMapping("/veiculo/buscarVeiculoIntervaloKm/{inicial}/{final}")
+    @GetMapping("/veiculo/listarVeiculosIntervaloKmRodados/{KmInicial}/{kmFinal}")
     @ApiOperation(value = "Lista veículos por intervalo de km rodados, passando dois valores.")
-    public List<Veiculo> buscarVeiculoIntervaloKm(@PathVariable("inicial") String inicial, @PathVariable("final") String fim)  {
-        return veiculoRepository.buscarVeiculoIntervaloKm(Integer.valueOf(inicial), Integer.valueOf(fim));
+    public ResponseEntity<List<Veiculo>> listarVeiculosIntervaloKmRodados(@PathVariable("KmInicial") Integer KmInicial, @PathVariable("kmFinal") Integer kmFinal)  {
+        List<Veiculo> veiculos;
+        veiculos = veiculoService.listarVeiculosIntervaloKmRodados(KmInicial, kmFinal);
+        return ResponseEntity.ok().body(veiculos);
     }
 
-    @GetMapping("/veiculo/buscarOrdemTrafegoVeiculo/{idVeiculo}")
-    @ApiOperation(value = "Lista ordens de tráfego no qual o veiculo esta vinculado, passando o Id do veículo.")
-    public List<OrdemTrafego> buscarOrdemTrafegoVeiculo(@PathVariable("idVeiculo") String idVeiculo)  {
-        return ordemTrafegoRepository.buscarOrdemTrafegoVeiculo (Integer.valueOf(idVeiculo));
+    @GetMapping("/veiculo/buscarOrdensTrafegoVeiculo/{id}")
+    @ApiOperation(value = "Listar todas as ordens de tráfego que esta relacionada com o condutor, passando o id do veículo.")
+    public List<OrdemTrafego> buscarOrdemTrafegoVeiculo(@PathVariable("idVeiculo") Integer id)  {
+        return ordemTrafegoRepository.buscarOrdemTrafegoVeiculo (Integer.valueOf(id));
     }
 }

@@ -64,40 +64,36 @@ Buscar todas as ordens de tráfego que esta relacionada com o condutor, passando
 http://localhost:8080/api/condutor/buscarOrdemTrafegoVeiculo/25
 
 
+Inserir veiculo:
+http://localhost:8080/api/veiculo/inserirVeiculo{
+	{
+      "marca": "string",
+      "modelo": "string",
+      "kmRodados": 0,
+      "placa": "string",
+      "cor": "string",
+      "anoFabicacao": "2020",
+      "categoriaVeiculo": "PASSEIO",
+      "tipoCombustivel": "DIESEL",
+      "estadoConservacao": "NOVO"
+    }
 
-
-
-
-
-
-Salvar veiculo:
-http://localhost:8080/api/veiculo/salvarVeiculo
-{
-	"marca": "FIAT",
-        "modelo": "Argo",
-        "km": 18863,
-        "placa": "DFD8564",
-        "cor": "Branca",
-        "anoFabicacao": 2020,
-        "categoriaVeiculo": "PASSEIO",
-        "tipoCombustivel": "FLEX",
-        "estadoConservacao": "NOVO"
-}
-
-Editar veiculo
-http://localhost:8080/api/veiculo/editarVeiculo
-{
-    "id": 3,
-    "marca": "FIAT",
-    "modelo": "Argo",
-    "km": 23202,
-    "placa": "DFD8564",
-    "cor": "Branca",
-    "anoFabicacao": 2020,
-    "categoriaVeiculo": "PASSEIO",
-    "tipoCombustivel": "FLEX",
-    "estadoConservacao": "NOVO"
-}
+Atualiar veiculo
+http://localhost:8080/api/veiculo/atualizarVeiculo{
+   {
+     "id": 2,
+     "marca": "Toyota",
+     "modelo": "Etios",
+     "kmRodados": 0,
+     "placa": "string",
+     "cor": "string",
+     "anoFabicacao": "2020",
+     "categoriaVeiculo": "PASSEIO",
+     "tipoCombustivel": "DIESEL",
+     "estadoConservacao": "NOVO"
+   }
+Deletar veiculo
+http://localhost:8080/api/veiculo/deletarVeiculo/1
 
 Listar todos os veiculos
 http://localhost:8080/api/veiculo/veiculos
@@ -114,8 +110,6 @@ http://localhost:8080/api/veiculo/buscarOrdemTrafegoVeiculo/2
 Listar veiculo por id
 http://localhost:8080/api/veiculo/buscarVeiculoId/2
 
-Deletar veiculo
-http://localhost:8080/api/veiculo/deletarVeiculo/3
 
 
 
