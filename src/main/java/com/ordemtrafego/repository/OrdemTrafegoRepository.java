@@ -18,9 +18,8 @@ public interface OrdemTrafegoRepository extends JpaRepository<OrdemTrafego, Inte
             nativeQuery = true)
     List<OrdemTrafego> listarOrdensTrafegoCondutor(Integer idCondutor);
 
-    @Query(value = "select *from ordemtrafego where data = ?1",
-            nativeQuery = true)
-    List<OrdemTrafego> buscarOrdemTrafegoData(LocalDate data);
+    @Query(value = "select *from ordemtrafego where data = ?1",nativeQuery = true)
+    List<OrdemTrafego> listarOrdensTrafegoData(Date data);
 
     @Query(value = "SELECT *FROM ordemtrafego as ot" +
             "    INNER JOIN endereco des on ot.destino_id = des.id" +
@@ -29,7 +28,7 @@ public interface OrdemTrafegoRepository extends JpaRepository<OrdemTrafego, Inte
             "    INNER JOIN veiculo vei on ot.veiculo_id = vei.id" +
             "    where ori.cidade = ?1",
             nativeQuery = true)
-    List<OrdemTrafego> buscarOrdemTrafegoOrigem(String origem);
+    List<OrdemTrafego> listarOrdensTrafegoCidadeOrigem(String cidadeOrigem);
 
     @Query(value = "SELECT *FROM ordemtrafego as ot\n" +
             "    INNER JOIN endereco des on ot.destino_id = des.id\n" +
@@ -38,7 +37,7 @@ public interface OrdemTrafegoRepository extends JpaRepository<OrdemTrafego, Inte
             "    INNER JOIN veiculo vei on ot.veiculo_id = vei.id\n" +
             "    where des.cidade = ?1",
             nativeQuery = true)
-    List<OrdemTrafego> buscarOrdemTrafegoDestino(String destino);
+    List<OrdemTrafego> listarOrdensTrafegoCidadeDestino(String destino);
 
 
 

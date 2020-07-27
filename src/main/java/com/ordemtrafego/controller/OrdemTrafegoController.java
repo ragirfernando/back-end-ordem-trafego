@@ -6,14 +6,17 @@ import com.ordemtrafego.domain.Veiculo;
 import com.ordemtrafego.repository.CondutorRepository;
 import com.ordemtrafego.repository.OrdemTrafegoRepository;
 import com.ordemtrafego.repository.VeiculoRepository;
+import com.ordemtrafego.service.OrdemTrafegoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -22,8 +25,11 @@ import java.util.List;
 @Api(value = "API REST Ordem de táfego")
 @CrossOrigin(origins = "*")
 public class OrdemTrafegoController {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+
+    @Autowired
+    private OrdemTrafegoService ordemTrafegoService;
 
     @Autowired
     OrdemTrafegoRepository ordemTrafegoRepository;
@@ -34,59 +40,70 @@ public class OrdemTrafegoController {
     @Autowired
     VeiculoRepository veiculoRepository;
 
-    @PostMapping("/ordemTrefego/salvarOrdemTrafego/{idCondutor}/{idVeiculo}")
-    @ApiOperation(value = "Salva uma ordem de tráfego.")
-    public OrdemTrafego salvarOrdemTrafego(
-            @RequestBody OrdemTrafego ordemTrafego, @PathVariable("idCondutor") Integer idCondutor, @PathVariable("idVeiculo") Integer idVeiculo) {
-        Condutor condutor = condutorRepository.buscaCondutor(idCondutor);
+    @PostMapping("/ordemTrafego/inserirOrdemTrafego/{idCondutor}/{idVeiculo}")
+    @ApiOperation(value = "Inserir ordem de tráfego.")
+    public ResponseEntity<OrdemTrafego> inserirOrdemTrafego(
+            @RequestBody OrdemTrafego ordemTrafego,
+            @PathVariable("idCondutor") Integer idCondutor,
+            @PathVariable("idVeiculo") Integer idVeiculo) {
+
+        Condutor condutor = ordemTrafegoService.buscarCondutorId(idCondutor);
         ordemTrafego.setCondutor(condutor);
-        Veiculo veiculo = veiculoRepository.buscarVeiculo(idVeiculo);
+        Veiculo veiculo = ordemTrafegoService.buscarVeiculoId(idVeiculo);
         ordemTrafego.setVeiculo(veiculo);
-        return ordemTrafegoRepository.save(ordemTrafego);
+        ordemTrafegoService.inserirOrdemTrafego(ordemTrafego);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ordemTrafego.getId()).toUri();
+        return ResponseEntity.created(uri).body(ordemTrafego);
     }
 
-    @PutMapping("/ordemTrefego/editarOrdemTrafego/{idCondutor}/{idVeiculo}")
-    @ApiOperation(value = "Editar uma ordem de tráfego.")
-    public OrdemTrafego editarOrdemTrafego(
-            @RequestBody OrdemTrafego ordemTrafego, @PathVariable("idCondutor")
-            Integer idCondutor, @PathVariable("idVeiculo") Integer idVeiculo) {
-        Condutor condutor = condutorRepository.buscaCondutor(idCondutor);
+    @PutMapping("/ordemTrafego/atualizarOrdemTrafego/{idCondutor}/{idVeiculo}")
+    @ApiOperation(value = "Atualizar uma ordem de tráfego.")
+    public ResponseEntity<OrdemTrafego> atualizarOrdemTrafego(
+            @RequestBody OrdemTrafego ordemTrafego,
+            @PathVariable("idCondutor") Integer idCondutor,
+            @PathVariable("idVeiculo") Integer idVeiculo) {
+
+        Condutor condutor = ordemTrafegoService.buscarCondutorId(idCondutor);
         ordemTrafego.setCondutor(condutor);
-        Veiculo veiculo = veiculoRepository.buscarVeiculo(idVeiculo);
+        Veiculo veiculo = ordemTrafegoService.buscarVeiculoId(idVeiculo);
         ordemTrafego.setVeiculo(veiculo);
-        return ordemTrafegoRepository.save(ordemTrafego);
+        ordemTrafegoService.atualizarOrdemTrafego(ordemTrafego);
+        return ResponseEntity.ok().body(ordemTrafego);
     }
 
-    @DeleteMapping("/ordemTrefego/deletarOrdemTrafego/{id}")
-    @ApiOperation(value = "Deletar uma ordem de tráfego.")
-    public void deletarOrdemTrafego(@PathVariable(value = "id") Integer id) {
-        ordemTrafegoRepository.deleteById(id);
+    @DeleteMapping("/ordemTrafego/deletarOrdemTrafego/{id}")
+    @ApiOperation(value = "Deletar ordem de tráfego passando o id.")
+    public ResponseEntity<String> deletarOrdemTrafego(@PathVariable(value = "id") Integer id) {
+        ordemTrafegoService.deletarOrdemTrafego(id);
+        return ResponseEntity.ok().body("Ordem de tráfego excluida");
     }
 
-    @GetMapping("/ordemTrefego/ordensTrafego")
+    @GetMapping("/ordemTrafego/ordensTrafego")
     @ApiOperation(value = "Listar todas ordens de tráfego.")
-    public List<OrdemTrafego> listaOrdensTrafego() {
-        return ordemTrafegoRepository.findAll();
+    public ResponseEntity<List<OrdemTrafego>> listarOrdensTrafego() {
+        List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdensTrafego();
+        return ResponseEntity.ok().body(ordensTrafego);
     }
 
-    @GetMapping("/ordemTrefego/buscarOrdemTrafegoData/{data}")
+    @GetMapping("/ordemTrafego/listarOrdensTrafegoData/{data}")
     @ApiOperation(value = "Listar ordens de tráfego por data.")
-    public List<OrdemTrafego> buscarOrdemTrafegoData(@PathVariable(value = "data") String data) {
-        LocalDate localDate = LocalDate.parse(data, formatter);
-        return ordemTrafegoRepository.buscarOrdemTrafegoData(localDate);
+    public ResponseEntity<List<OrdemTrafego>> listarOrdensTrafegoData(@PathVariable(value = "data") String data) throws ParseException {
+        Date date = format.parse(data);
+        List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdensTrafegoData(date);
+        return ResponseEntity.ok().body(ordensTrafego);
     }
 
-    @GetMapping("/ordemTrefego/buscarOrdemTrafegoOrigem/{origem}")
-    @ApiOperation(value = "Listar ordens de tráfego por origem.")
-    public List<OrdemTrafego> buscarOrdemTrafegoOrigem(@PathVariable(value = "origem") String origem) {
-        return ordemTrafegoRepository.buscarOrdemTrafegoOrigem(origem);
+    @GetMapping("/ordemTrafego/buscarOrdemTrafegoOrigem/{cidadeOrigem}")
+    @ApiOperation(value = "Listar ordens de tráfego por cidade de origem.")
+    public ResponseEntity<List<OrdemTrafego>> listarOrdemTrafegoCidadeOrigem(@PathVariable(value = "origem") String cidadeOrigem) {
+        List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdensTrafegoCidadeOrigem(cidadeOrigem);
+        return ResponseEntity.ok().body(ordensTrafego);
     }
 
-    @GetMapping("/ordemTrefego/buscarOrdemTrafegoDestino/{destino}")
+    @GetMapping("/ordemTrafego/buscarOrdemTrafegoDestino/{cidadeDestino}")
     @ApiOperation(value = "Listar ordens de tráfego por destino.")
-    public List<OrdemTrafego> buscarOrdemTrafegoDestino(@PathVariable(value = "destino") String destino) {
-        return ordemTrafegoRepository.buscarOrdemTrafegoDestino(destino);
+    public ResponseEntity<List<OrdemTrafego>> listarOrdemTrafegoCidadeDestino(@PathVariable(value = "origem") String cidadeDestino) {
+        List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdensTrafegoCidadeDestino(cidadeDestino);
+        return ResponseEntity.ok().body(ordensTrafego);
     }
-
-
 }

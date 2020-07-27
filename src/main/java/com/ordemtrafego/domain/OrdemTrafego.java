@@ -1,14 +1,21 @@
 package com.ordemtrafego.domain;
 
-import com.sun.istack.NotNull;
+import com.ordemtrafego.enumerador.StatusOrdemTrafego;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 
+
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode(exclude={"origem", "destino", "veiculo", "condutor", "data" ,"hora" , "status", "distanciaPercorrer"})
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "ordemtrafego")
 public class OrdemTrafego implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -37,108 +44,15 @@ public class OrdemTrafego implements Serializable {
     private Date data;
 
     @NotNull
-    private String status;
+    @Temporal(TemporalType.TIME)
+    private Date hora;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private StatusOrdemTrafego status;
 
     @NotNull
     private Integer distanciaPercorrer;
 
-    public OrdemTrafego() {
-    }
 
-    public OrdemTrafego(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Endereco getOrigem() {
-        return origem;
-    }
-
-    public void setOrigem(Endereco origem) {
-        this.origem = origem;
-    }
-
-    public Endereco getDestino() {
-        return destino;
-    }
-
-    public void setDestino(Endereco destino) {
-        this.destino = destino;
-    }
-
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
-
-    public void setVeiculo(Veiculo veiculo) {
-        this.veiculo = veiculo;
-    }
-
-    public Condutor getCondutor() {
-        return condutor;
-    }
-
-    public void setCondutor(Condutor condutor) {
-        this.condutor = condutor;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getDistanciaPercorrer() {
-        return distanciaPercorrer;
-    }
-
-    public void setDistanciaPercorrer(Integer distanciaPercorrer) {
-        this.distanciaPercorrer = distanciaPercorrer;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OrdemTrafego that = (OrdemTrafego) o;
-
-        return id != null ? id.equals(that.id) : that.id == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "OrdemTrafego{" +
-                "id=" + id +
-                ", origem=" + origem +
-                ", destino=" + destino +
-                ", veiculo=" + veiculo +
-                ", condutor=" + condutor +
-                ", data=" + data +
-                ", status='" + status + '\'' +
-                ", distanciaPercorrer=" + distanciaPercorrer +
-                '}';
-    }
 }
