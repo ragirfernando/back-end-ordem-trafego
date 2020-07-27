@@ -19,45 +19,46 @@ http://localhost:8080/api/condutor/inserirCondutor
   "cpf": "56326514523",
   "matricula": "6321454125"
 }
+
 Buscar Condutor por id
-http://localhost:8080/api/condutor/buscarCondutorId/2
+http://localhost:8080/api/condutor/buscarCondutorId/9
 
 Deletar condutor
-http://localhost:8080/api/condutor/deletarCondutorId/1
+http://localhost:8080/api/condutor/deletarCondutorId/9
 
 Atualizar condutor
 http://localhost:8080/api/condutor/atualizarCondutor
-{
-  "id": 2,
-  "nome": "Viado",
-  "cnh": {
-    "id": 2,
-    "numeroCNH": 253214,
-    "categoriaCNH": "A",
-    "validade": "2020-04-03"
-  },
-  "endereco": {
-    "id": 2,
-    "cep": "77024682",
-    "logradouro": "1204 Sul Rua 18",
-    "complemento": "Qi 14",
-    "numero": 10,
-    "bairro": "Plano Diretor Sul",
-    "localidade": "Palmas",
-    "uf": "TO"
-  },
-  "cpf": "56326514523",
-  "matricula": "6321454125"
-}
+{{
+   "id": 8,
+   "nome": "Fabio Marcos",
+   "cnh": {
+     "id": 10,
+     "numeroCNH": 253214,
+     "categoriaCNH": "E",
+     "validade": "2020-04-03"
+   },
+   "endereco": {
+     "id": 10,
+     "cep": "77024682",
+     "logradouro": "1304 Sul Rua 18",
+     "complemento": "Qi 14",
+     "numero": 10,
+     "bairro": "Plano Diretor Sul",
+     "localidade": "Palmas",
+     "uf": "TO"
+   },
+   "cpf": "56326514523",
+   "matricula": "6321454125"
+ }
 
 Lista de condutores
 http://localhost:8080/api/condutor/condutores
 
-Buscar condutores por categoria cnh
-http://localhost:8080/api/condutor/buscarCondutorCategoriaCnh/B
+Listar condutores por categoria cnh
+http://localhost:8080/api/condutor/listarCondutoresCategoriaCnh/E
 
 Buscar condutor por nome
-http://localhost:8080/api/condutor/buscarCondutorNome/Roberto
+http://localhost:8080/api/condutor/buscarCondutorNome/Fabio%20Marcos
 
 Buscar todas as ordens de tráfego que esta relacionada com o condutor, passando o id do condutor.
 http://localhost:8080/api/condutor/buscarOrdemTrafegoVeiculo/25

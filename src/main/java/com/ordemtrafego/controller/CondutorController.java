@@ -2,21 +2,16 @@ package com.ordemtrafego.controller;
 
 import com.ordemtrafego.domain.Condutor;
 import com.ordemtrafego.domain.OrdemTrafego;
-import com.ordemtrafego.repository.CondutorRepository;
-import com.ordemtrafego.repository.OrdemTrafegoRepository;
 import com.ordemtrafego.service.CondutorService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -25,15 +20,7 @@ import java.util.Optional;
 public class CondutorController {
 
     @Autowired
-    CondutorRepository condutorRepository;
-
-    @Autowired
     private CondutorService condutorService;
-
-    @Autowired
-    OrdemTrafegoRepository ordemTrafegoRepository;
-
-    List<Condutor> condutores = new ArrayList<>();
 
     @GetMapping("/condutor/condutores")
     @ApiOperation(value = "Lista todos os condutores.")
@@ -72,24 +59,21 @@ public class CondutorController {
         return ResponseEntity.ok().body(condutor);
     }
 
-
-
-    @GetMapping("/condutor/buscarCondutorCategoriaCnh/{categoriaCnh}")
+    @GetMapping("/condutor/listarCondutoresCategoriaCnh/{categoriaCnh}")
     @ApiOperation(value = "Buscar condutor por categoria da CNH.")
-    public List<Condutor> buscarCondutorCategoriaCnh(@PathVariable(value = "categoriaCnh") String categoriaCnh) {
-        condutores = condutorRepository.buscaCondutorCategoriaCnh(categoriaCnh);
-        return condutores;
+    public List<Condutor> listarCondutoresCategoriaCnh(@PathVariable(value = "categoriaCnh") String categoriaCnh) {
+        return condutorService.listarCondutoresCategoriaCnh(categoriaCnh);
     }
 
     @GetMapping("/condutor/buscarCondutorNome/{nome}")
     @ApiOperation(value = "Buscar um condutor por nome.")
     public Condutor buscaCondutorNome(@PathVariable(value = "nome") String nome) {
-        return condutorRepository.buscaCondutorNome(nome);
+        return condutorService.buscaCondutorNome(nome);
     }
 
-    @GetMapping("/condutor/buscarOrdemTrafegoVeiculo/{idCondutor}")
-    @ApiOperation(value = "Buscar todas as ordens de tráfego que esta relacionada com o condutor, passando o id do condutor.")
-    public List<OrdemTrafego> buscarOrdemTrafegoVeiculo(@PathVariable("idCondutor") String idCondutor) {
-        return ordemTrafegoRepository.buscarOrdemTrafegoCondutor(Integer.valueOf(idCondutor));
+    @GetMapping("/condutor/listarOrdensTrafegoConditor/{id}")
+    @ApiOperation(value = "Listar todas as ordens de tráfego que esta relacionada com o condutor, passando o id do condutor.")
+    public List<OrdemTrafego> listarOrdensTrafegoVeiculo(@PathVariable("id") Integer id) {
+        return condutorService.listarOrdensTrafegoCondutor(id);
     }
 }

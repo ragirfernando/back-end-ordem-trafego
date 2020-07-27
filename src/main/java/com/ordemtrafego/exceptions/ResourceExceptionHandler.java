@@ -13,10 +13,19 @@ import java.time.Instant;
 public class ResourceExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException e, HttpServletRequest httpServletRequest){
+    public ResponseEntity<StandardError> resourceNotFound(ResourceNotFoundException resourceNotFoundException, HttpServletRequest httpServletRequest){
         String error = "Resource not found";
         HttpStatus httpStatus = HttpStatus.NOT_FOUND;
-        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, e.getMessage(), httpServletRequest.getRequestURI());
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, resourceNotFoundException.getMessage(), httpServletRequest.getRequestURI());
+
+        return ResponseEntity.status(httpStatus).body(standardError);
+    }
+
+    @ExceptionHandler(DatabaseException.class)
+    public ResponseEntity<StandardError> dataBase(DatabaseException databaseException, HttpServletRequest httpServletRequest){
+        String error = "DataBase error";
+        HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        StandardError standardError = new StandardError(Instant.now(), httpStatus.value(), error, databaseException.getMessage(), httpServletRequest.getRequestURI());
 
         return ResponseEntity.status(httpStatus).body(standardError);
     }

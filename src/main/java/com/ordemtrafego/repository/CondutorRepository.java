@@ -17,7 +17,7 @@ public interface CondutorRepository extends JpaRepository<Condutor, Integer> {
             "        INNER JOIN endereco ende on con.endereco_id = ende.id" +
             "        INNER JOIN cnh c on con.cnh_id = c.id" +
             "        where c.categoriacnh = ?1", nativeQuery = true)
-    List<Condutor> buscaCondutorCategoriaCnh(String categoriaCnh);
+    List<Condutor> listarCondutoresCategoriaCnh(String categoriaCnh);
 
     @Query(value = "SELECT *FROM condutor as con" +
             "        INNER JOIN endereco ende on con.endereco_id = ende.id" +

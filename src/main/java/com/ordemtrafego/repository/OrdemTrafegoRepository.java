@@ -17,7 +17,7 @@ public interface OrdemTrafegoRepository extends JpaRepository<OrdemTrafego, Inte
 
     @Query(value = "select *from ordemtrafego where condutor_id = ?1",
             nativeQuery = true)
-    List<OrdemTrafego> buscarOrdemTrafegoCondutor(Integer idCondutor);
+    List<OrdemTrafego> listarOrdensTrafegoCondutor(Integer idCondutor);
 
     @Query(value = "select *from ordemtrafego where data = ?1",
             nativeQuery = true)
