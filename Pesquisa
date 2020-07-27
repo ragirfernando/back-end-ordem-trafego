@@ -119,7 +119,7 @@ http://localhost:8080/api/veiculo/buscarVeiculoId/2
 o Exibir dados da ordem de trafico*/
 
 Salvar orden de trafego
-http://localhost:8080/api/ordemTrefego/salvarOrdemTrafego/37/2
+http://localhost:8080/api/ordemTrafego/salvarOrdemTrafego/37/2
 
 {
   "origem":{
@@ -140,7 +140,7 @@ http://localhost:8080/api/ordemTrefego/salvarOrdemTrafego/37/2
 }
 	
 Editar ordem de trafego
-http://localhost:8080/api/ordemTrefego/editarOrdemTrafego/37/2
+http://localhost:8080/api/ordemTrafego/editarOrdemTrafego/37/2
 {
   "id": 6,
   "origem":{	"id": 42,
@@ -162,19 +162,19 @@ http://localhost:8080/api/ordemTrefego/editarOrdemTrafego/37/2
 }
 	
 Deletar ordem de trafego
-http://localhost:8080/api/ordemTrefego/deletarOrdemTrafego/1
+http://localhost:8080/api/ordemTrafego/deletarOrdemTrafego/1
 
 Listar todas as ordens de trafego
-http://localhost:8080/api/ordemTrefego/ordensTrafego
+http://localhost:8080/api/ordemTrafego/ordensTrafego
 
 listar ordem trafego por origem
-http://localhost:8080/api/ordemTrefego/buscarOrdemTrafegoOrigem/Palmas
+http://localhost:8080/api/ordemTrafego/buscarOrdemTrafegoOrigem/Palmas
 
 listar ordem trafego por destino
-http://localhost:8080/api/ordemTrefego/buscarOrdemTrafegoDestino/Palmas
+http://localhost:8080/api/ordemTrafego/buscarOrdemTrafegoDestino/Palmas
 
 listar ordem trafego por data
-http://localhost:8080/api/ordemTrefego/buscarOrdemTrafegoData/2020-06-04       
+http://localhost:8080/api/ordemTrafego/buscarOrdemTrafegoData/2020-06-04
         
                
         
