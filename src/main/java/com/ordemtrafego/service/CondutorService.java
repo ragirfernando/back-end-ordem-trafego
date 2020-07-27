@@ -72,6 +72,12 @@ public class CondutorService {
     }
 
     public List<OrdemTrafego> listarOrdensTrafegoCondutor(Integer id) {
-        return ordemTrafegoRepository.listarOrdensTrafegoCondutor(id);
+        Optional<List<OrdemTrafego>> ordensTrafego = null;
+        try {
+            ordensTrafego = Optional.ofNullable(ordemTrafegoRepository.listarOrdensTrafegoCondutor(id));
+            return ordensTrafego.get();
+        }catch (NoSuchElementException noSuchElementException) {
+            return ordensTrafego.orElseThrow(() -> new ResourceNotFoundException(id));
+        }
     }
 }

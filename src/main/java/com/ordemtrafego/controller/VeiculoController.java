@@ -49,9 +49,9 @@ public class VeiculoController {
 
     @DeleteMapping("/veiculo/deletarVeiculo/{id}")
     @ApiOperation(value = "Deletar veículo por Id.")
-    public String deletarVeiculoPorId(@PathVariable Integer id){
+    public ResponseEntity<String> deletarVeiculoPorId(@PathVariable Integer id){
         veiculoService.deletarVeiculo(id);
-        return "Veiculo excluido";
+        return ResponseEntity.ok().body("Veiculo excluido");
     }
 
     @GetMapping("/veiculo/veiculos")
@@ -64,16 +64,14 @@ public class VeiculoController {
     @GetMapping("/veiculo/listarVeiculosMarca/{marca}")
     @ApiOperation(value = "listar veículos por marca.")
     public ResponseEntity<List<Veiculo>> listarVeliculosMarca(@PathVariable(value = "marca") String marca) {
-        List<Veiculo> veiculos;
-        veiculos = veiculoService.listarVeiculosMarca(marca);
+        List<Veiculo> veiculos = veiculoService.listarVeiculosMarca(marca);
         return ResponseEntity.ok().body(veiculos);
     }
 
     @GetMapping("/veiculo/listarVeiculosModelo/{modelo}")
     @ApiOperation(value = "Lista veículos por modelo.")
     public ResponseEntity<List<Veiculo>> listarVeiculosModelo(@PathVariable(value = "modelo") String modelo) {
-        List<Veiculo> veiculos;
-        veiculos = veiculoService.listarVeiculosModelo(modelo);
+        List<Veiculo> veiculos = veiculoService.listarVeiculosModelo(modelo);
         return ResponseEntity.ok().body(veiculos);
     }
 
@@ -81,24 +79,21 @@ public class VeiculoController {
     @GetMapping("/veiculo/buscarVeiculoId/{id}")
     @ApiOperation(value = "Buscar veículo por Id.")
     public ResponseEntity<Veiculo> buscarVeiculoId(@PathVariable(value = "id") Integer id) {
-        Veiculo veiculo;
-        veiculo = veiculoService.buscarVeiculoId(id);
+        Veiculo veiculo = veiculoService.buscarVeiculoId(id);
         return ResponseEntity.ok().body(veiculo);
     }
 
     @GetMapping("/veiculo/listarVeiculosEstadoConservacao/{estadoConservacao}")
     @ApiOperation(value = "Listar veículos por estado de conservação.")
     public ResponseEntity<List<Veiculo>> listarVeiculosEstadoConservacao(@PathVariable(value = "estadoConservacao") String estadoConservacao) {
-        List<Veiculo> veiculos;
-        veiculos = veiculoService.listarVeiculosEstadoConservacao(estadoConservacao);
+        List<Veiculo> veiculos  = veiculoService.listarVeiculosEstadoConservacao(estadoConservacao);
         return ResponseEntity.ok().body(veiculos);
     }
 
     @GetMapping("/veiculo/listarVeiculosIntervaloKmRodados/{KmInicial}/{kmFinal}")
     @ApiOperation(value = "Lista veículos por intervalo de km rodados, passando dois valores.")
     public ResponseEntity<List<Veiculo>> listarVeiculosIntervaloKmRodados(@PathVariable("KmInicial") Integer KmInicial, @PathVariable("kmFinal") Integer kmFinal)  {
-        List<Veiculo> veiculos;
-        veiculos = veiculoService.listarVeiculosIntervaloKmRodados(KmInicial, kmFinal);
+        List<Veiculo> veiculos = veiculoService.listarVeiculosIntervaloKmRodados(KmInicial, kmFinal);
         return ResponseEntity.ok().body(veiculos);
     }
 
