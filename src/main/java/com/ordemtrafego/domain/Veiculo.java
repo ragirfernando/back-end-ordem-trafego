@@ -40,8 +40,8 @@ public class Veiculo implements Serializable {
     private String cor;
 
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy", locale = "pt-BR", timezone = "Brazil/East")
-    private Date anoFabicacao;
+    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy", locale = "pt-BR", timezone = "Brazil/East")
+    private Integer anoFabricacao;
 
     @Enumerated(EnumType.STRING)
     private CategoriaVeiculo categoriaVeiculo;
