@@ -22,15 +22,7 @@ import java.util.List;
 public class VeiculoController {
 
     @Autowired
-    VeiculoRepository veiculoRepository;
-
-    @Autowired
     private VeiculoService veiculoService;
-
-    @Autowired
-    OrdemTrafegoRepository ordemTrafegoRepository;
-    private List<Veiculo> veiculoList;
-    private Veiculo veiculo;
 
     @PostMapping("/veiculo/inserirVeiculo")
     @ApiOperation(value = "Inserir um veículo.")
@@ -97,9 +89,10 @@ public class VeiculoController {
         return ResponseEntity.ok().body(veiculos);
     }
 
-    @GetMapping("/veiculo/buscarOrdensTrafegoVeiculo/{id}")
-    @ApiOperation(value = "Listar todas as ordens de tráfego que esta relacionada com o condutor, passando o id do veículo.")
-    public List<OrdemTrafego> buscarOrdemTrafegoVeiculo(@PathVariable("idVeiculo") Integer id)  {
-        return ordemTrafegoRepository.buscarOrdemTrafegoVeiculo (Integer.valueOf(id));
+    @GetMapping("/veiculo/listarOrdensTrafegoVeiculo/{id}")
+    @ApiOperation(value = "Listar todas as ordens de tráfego que esta relacionada com o veiculo, passando o id do veículo.")
+    public ResponseEntity<List<OrdemTrafego>> listarOrdensTrafegoVeiculo(@PathVariable("id") Integer id)  {
+        List<OrdemTrafego> ordensTrafego = veiculoService.listarOrdensTrafegoVeiculo(id);
+        return ResponseEntity.ok().body(ordensTrafego);
     }
 }

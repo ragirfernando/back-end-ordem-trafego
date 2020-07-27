@@ -1,8 +1,10 @@
 package com.ordemtrafego.service;
 
+import com.ordemtrafego.domain.OrdemTrafego;
 import com.ordemtrafego.domain.Veiculo;
 import com.ordemtrafego.exceptions.DatabaseException;
 import com.ordemtrafego.exceptions.ResourceNotFoundException;
+import com.ordemtrafego.repository.OrdemTrafegoRepository;
 import com.ordemtrafego.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -18,6 +20,9 @@ public class VeiculoService {
 
     @Autowired
     private VeiculoRepository veiculoRepository;
+
+    @Autowired
+    private OrdemTrafegoRepository ordemTrafegoRepository;
 
     public Veiculo inserirVeiculo(Veiculo veiculo) {
         return veiculoRepository.save(veiculo);
@@ -88,6 +93,16 @@ public class VeiculoService {
             return veiculos.get();
         } catch (NoSuchElementException noSuchElementException) {
             return veiculos.orElseThrow(() -> new ResourceNotFoundException(kmFinal));
+        }
+    }
+
+    public List<OrdemTrafego> listarOrdensTrafegoVeiculo(Integer id) {
+        Optional<List<OrdemTrafego>> ordensTrafego = null;
+        try {
+            ordensTrafego = Optional.ofNullable(ordemTrafegoRepository.listarOrdensTrafegoVeiculo(id));
+            return ordensTrafego.get();
+        } catch (NoSuchElementException noSuchElementException) {
+            return ordensTrafego.orElseThrow(() -> new ResourceNotFoundException(id));
         }
     }
 }
