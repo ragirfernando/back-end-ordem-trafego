@@ -74,7 +74,7 @@ http://localhost:8080/api/veiculo/inserirVeiculo{
       "kmRodados": 0,
       "placa": "string",
       "cor": "string",
-      "anoFabicacao": "2020",
+      "anoFabricacao": "2020",
       "categoriaVeiculo": "PASSEIO",
       "tipoCombustivel": "DIESEL",
       "estadoConservacao": "NOVO"

@@ -33,7 +33,7 @@ public class VeiculoController {
     }
 
     @PutMapping("/veiculo/atualizarVeiculo")
-    @ApiOperation(value = "Atualizar veículo.")
+    @ApiOperation(value = "Atualizar um veículo.")
     public ResponseEntity<Veiculo> atualizarVeiculo(@RequestBody Veiculo veiculo) {
         veiculo = veiculoService.atualizarVeiculo(veiculo);
         return ResponseEntity.ok().body(veiculo);
