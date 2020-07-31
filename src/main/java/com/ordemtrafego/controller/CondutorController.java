@@ -40,6 +40,7 @@ public class CondutorController {
     @PostMapping("/condutor/inserirCondutor")
     @ApiOperation(value = "Inserir um condutor.")
     public ResponseEntity<Condutor> inserirCondutor(@RequestBody Condutor condutor) {
+        condutor.setMatricula("452145124");
         condutor = condutorService.inserirCondutor(condutor);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(condutor.getId()).toUri();
         return ResponseEntity.created(uri).body(condutor);

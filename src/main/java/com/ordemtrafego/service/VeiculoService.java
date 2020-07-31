@@ -9,6 +9,7 @@ import com.ordemtrafego.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +44,9 @@ public class VeiculoService {
     }
 
     public List<Veiculo> listarVeiculos() {
-        return veiculoRepository.findAll();
+        return veiculoRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+
+        //repository.findAll(Sort.by(Sort.Direction.DESC, "colName"))
     }
 
     public List<Veiculo> listarVeiculosMarca(String marca){
