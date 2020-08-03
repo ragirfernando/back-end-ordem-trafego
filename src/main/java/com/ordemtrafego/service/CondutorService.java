@@ -9,6 +9,7 @@ import com.ordemtrafego.repository.OrdemTrafegoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,9 @@ public class CondutorService {
     private OrdemTrafegoRepository ordemTrafegoRepository;
 
     public List<Condutor> listarCondutores( ) {
-        return condutorRepository.findAll();
+        return condutorRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+
+
     }
 
     public List<Condutor> listarCondutoresCategoriaCnh(String categoriaCnh) {
