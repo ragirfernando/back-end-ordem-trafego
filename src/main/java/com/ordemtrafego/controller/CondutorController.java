@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Random;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -40,10 +41,25 @@ public class CondutorController {
     @PostMapping("/condutor/inserirCondutor")
     @ApiOperation(value = "Inserir um condutor.")
     public ResponseEntity<Condutor> inserirCondutor(@RequestBody Condutor condutor) {
-        condutor.setMatricula("452145124");
+        condutor.setMatricula(gerarMatricula());
         condutor = condutorService.inserirCondutor(condutor);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(condutor.getId()).toUri();
         return ResponseEntity.created(uri).body(condutor);
+    }
+
+    public String gerarMatricula(){
+        Random  random = new Random();
+        int numeroMatricula = 0;
+        List<Condutor> condutores;
+        numeroMatricula = random.nextInt(999999999);
+        condutores = condutorService.listarCondutores();
+        String finalNumeroMatricula = String.valueOf(numeroMatricula);
+        condutores.forEach(condutor -> {
+            if (condutor.getMatricula().equals(finalNumeroMatricula)){
+                gerarMatricula();
+            }
+        });
+        return finalNumeroMatricula;
     }
 
     @DeleteMapping("/condutor/deletarCondutorId/{id}")
