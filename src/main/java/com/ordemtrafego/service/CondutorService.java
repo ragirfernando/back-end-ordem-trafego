@@ -50,13 +50,15 @@ public class CondutorService {
             return condutorRepository.save(condutor);
     }
 
-    public void deletarCondutor(Integer id) {
+    public String deletarCondutor(Integer id) {
         try {
             condutorRepository.deleteById(id);
+            return "Veiculo excluido";
         } catch (EmptyResultDataAccessException emptyResultDataAccessException) {
-            throw new ResourceNotFoundException(id);
+            return "Veiculo não pode ser excluido";
         } catch (DataIntegrityViolationException dataIntegrityViolationException) {
-            throw new DatabaseException(dataIntegrityViolationException.getMessage());
+            return "Veiculo não pode ser excluido";
+            /*throw new DatabaseException(dataIntegrityViolationException.getMessage());*/
         }
     }
 

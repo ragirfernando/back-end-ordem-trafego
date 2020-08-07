@@ -64,9 +64,9 @@ public class CondutorController {
 
     @DeleteMapping("/condutor/deletarCondutorId/{id}")
     @ApiOperation(value = "Deletar condutor por Id.")
-    public ResponseEntity<String> deletarCondutor(@PathVariable Integer id) {
-        condutorService.deletarCondutor(id);
-        return ResponseEntity.ok().body("Condutor exluido");
+    public String deletarCondutor(@PathVariable Integer id) {
+        String retorno = condutorService.deletarCondutor(id);
+        return retorno;
     }
 
     @PutMapping("/condutor/atualizarCondutor")

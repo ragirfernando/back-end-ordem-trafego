@@ -1,5 +1,6 @@
 package com.ordemtrafego.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ordemtrafego.enumerador.StatusOrdemTrafego;
 import lombok.*;
 
@@ -44,7 +45,7 @@ public class OrdemTrafego implements Serializable {
     private Date data;
 
     @NotNull
-    @Temporal(TemporalType.TIME)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm", locale = "pt-BR", timezone = "Brazil/East")
     private Date hora;
 
     @NotNull

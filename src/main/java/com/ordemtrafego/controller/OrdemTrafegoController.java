@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,12 +41,16 @@ public class OrdemTrafegoController {
     @Autowired
     VeiculoRepository veiculoRepository;
 
+
+
+
     @PostMapping("/ordemTrafego/inserirOrdemTrafego/{idCondutor}/{idVeiculo}")
     @ApiOperation(value = "Inserir ordem de tráfego.")
-    public ResponseEntity<OrdemTrafego> inserirOrdemTrafego(
-            @RequestBody OrdemTrafego ordemTrafego,
-            @PathVariable("idCondutor") Integer idCondutor,
-            @PathVariable("idVeiculo") Integer idVeiculo) {
+    public ResponseEntity<OrdemTrafego> inserirOrdemTrafego(@RequestBody OrdemTrafego ordemTrafego, @PathVariable("idCondutor") Integer idCondutor, @PathVariable("idVeiculo") Integer idVeiculo) throws ParseException {
+
+        /*DateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = (Date)formatter.parse(ordemTrafego.getData().toString());
+        ordemTrafego.setData(date);*/
 
         Condutor condutor = ordemTrafegoService.buscarCondutorId(idCondutor);
         ordemTrafego.setCondutor(condutor);
