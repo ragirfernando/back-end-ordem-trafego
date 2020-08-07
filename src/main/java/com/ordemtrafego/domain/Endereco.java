@@ -32,7 +32,6 @@ public class Endereco implements Serializable {
     @NotNull
     private Integer numero;
 
-
     @NotNull
     private String bairro;
 
