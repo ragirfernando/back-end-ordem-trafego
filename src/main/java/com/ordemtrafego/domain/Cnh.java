@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 @Getter
 @Setter
@@ -32,7 +33,6 @@ public class Cnh implements Serializable {
     private CategoriaCNH categoriaCNH;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    private Date validade;
+    private LocalDate validade;
 
 }

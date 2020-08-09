@@ -1,5 +1,6 @@
 package com.ordemtrafego.controller;
 
+import com.ordemtrafego.domain.Cnh;
 import com.ordemtrafego.domain.Condutor;
 import com.ordemtrafego.domain.OrdemTrafego;
 import com.ordemtrafego.service.CondutorService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Random;
 
@@ -40,7 +42,7 @@ public class CondutorController {
 
     @PostMapping("/condutor/inserirCondutor")
     @ApiOperation(value = "Inserir um condutor.")
-    public ResponseEntity<Condutor> inserirCondutor(@RequestBody Condutor condutor) {
+    public ResponseEntity<Condutor> inserirCondutor(@RequestBody Condutor condutor) throws ParseException {
         condutor.setMatricula(gerarMatricula());
         condutor = condutorService.inserirCondutor(condutor);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(condutor.getId()).toUri();
@@ -65,8 +67,7 @@ public class CondutorController {
     @DeleteMapping("/condutor/deletarCondutorId/{id}")
     @ApiOperation(value = "Deletar condutor por Id.")
     public String deletarCondutor(@PathVariable Integer id) {
-        String retorno = condutorService.deletarCondutor(id);
-        return retorno;
+        return condutorService.deletarCondutor(id);
     }
 
     @PutMapping("/condutor/atualizarCondutor")
