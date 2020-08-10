@@ -53,11 +53,11 @@ public class CondutorService {
     public String deletarCondutor(Integer id) {
         try {
             condutorRepository.deleteById(id);
-            return "Veiculo excluido";
+            return "Condutor excluido com sucesso!";
         } catch (EmptyResultDataAccessException emptyResultDataAccessException) {
-            return "Veiculo não pode ser excluido";
+            return "Condutor não pode ser excluido";
         } catch (DataIntegrityViolationException dataIntegrityViolationException) {
-            return "Veiculo não pode ser excluido";
+            return "Condutor não pode ser excluido";
             /*throw new DatabaseException(dataIntegrityViolationException.getMessage());*/
         }
     }

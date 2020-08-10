@@ -42,7 +42,7 @@ public class CondutorController {
 
     @PostMapping("/condutor/inserirCondutor")
     @ApiOperation(value = "Inserir um condutor.")
-    public ResponseEntity<Condutor> inserirCondutor(@RequestBody Condutor condutor) throws ParseException {
+    public ResponseEntity<Condutor> inserirCondutor(@RequestBody Condutor condutor) {
         condutor.setMatricula(gerarMatricula());
         condutor = condutorService.inserirCondutor(condutor);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(condutor.getId()).toUri();
