@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface OrdemTrafegoRepository extends JpaRepository<OrdemTrafego, Integer> {
-    @Query(value = "select *from ordemtrafego where veiculo_id = ?1", nativeQuery = true)
+    @Query(value = "select *from ordem_trafego where veiculo_id = ?1", nativeQuery = true)
     List<OrdemTrafego> listarOrdensTrafegoVeiculo(Integer idVeiculo);
 
     @Query(value = "select *from ordemtrafego where condutor_id = ?1",

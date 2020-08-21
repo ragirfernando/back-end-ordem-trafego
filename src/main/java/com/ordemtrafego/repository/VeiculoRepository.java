@@ -17,13 +17,13 @@ public interface VeiculoRepository extends JpaRepository<Veiculo, Integer> {
     @Query(value = "select *from veiculo order by id asc ", nativeQuery = true)
     List<Veiculo> listaVeiculos();
 
-    @Query(value = "select *from veiculo where modelo = ?1", nativeQuery = true)
+    @Query(value = "select *from veiculo where modelo like %?1%", nativeQuery = true)
     List<Veiculo> listarVeiculosModelo(String modelo);
 
     @Query(value = "select *from veiculo where estado_conservacao = ?1", nativeQuery = true)
     List<Veiculo> listarVeiculosEstadoConservacao(String estadoConservacao);
 
-    @Query(value = "select *from veiculo where km > ?1  and km < ?2", nativeQuery = true)
+    @Query(value = "select *from veiculo where km_rodados > ?1  and km_rodados < ?2", nativeQuery = true)
     List<Veiculo> listarVeiculosIntervaloKmRodados(int kmInicial, int kmFinal );
 
 
