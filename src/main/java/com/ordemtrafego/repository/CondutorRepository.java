@@ -19,10 +19,13 @@ public interface CondutorRepository extends JpaRepository<Condutor, Integer> {
             "        where c.categoriacnh = ?1", nativeQuery = true)
     List<Condutor> listarCondutoresCategoriaCnh(String categoriaCnh);
 
-    @Query(value = "SELECT *FROM condutor as con" +
-            "        INNER JOIN endereco ende on con.endereco_id = ende.id" +
-            "        INNER JOIN cnh c on con.cnh_id = c.id" +
-            "        where con.nome = ?1", nativeQuery = true)
-    Condutor buscaCondutorNome(String nome);
+    @Query(value = "SELECT *FROM condutor as con\n" +
+            "       INNER JOIN endereco ende on con.endereco_id = ende.id\n" +
+            "       INNER JOIN cnh c on con.cnh_id = c.id\n" +
+            "       where c.numerocnh  = ?1", nativeQuery = true)
+    Condutor listarCondutorNumeroCnh(Integer numeroCnh);
+
+    @Query(value = "SELECT *FROM condutor where nome like %?1%", nativeQuery = true)
+    List<Condutor> buscaCondutorNome(String nome);
 
 }

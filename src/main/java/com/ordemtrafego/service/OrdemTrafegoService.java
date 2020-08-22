@@ -73,13 +73,13 @@ public class OrdemTrafegoService {
     }
 
 
-    public List<OrdemTrafego> listarOrdensTrafegoData(Date data){
+    public List<OrdemTrafego> listarOrdensTrafegoData(Date dataInicial, Date dataFinal){
         Optional<List<OrdemTrafego>> ordensTrafego = null;
         try {
-            ordensTrafego = Optional.ofNullable(ordemTrafegoRepository.listarOrdensTrafegoData(data));
+            ordensTrafego = Optional.ofNullable(ordemTrafegoRepository.listarOrdensTrafegoData(dataInicial, dataFinal));
             return ordensTrafego.get();
         } catch (NoSuchElementException noSuchElementException) {
-            return ordensTrafego.orElseThrow(() -> new ResourceNotFoundException(data));
+            return ordensTrafego.orElseThrow(() -> new ResourceNotFoundException(dataFinal));
         }
     }
 

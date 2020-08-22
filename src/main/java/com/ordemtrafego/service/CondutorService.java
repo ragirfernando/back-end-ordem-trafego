@@ -35,6 +35,9 @@ public class CondutorService {
     public List<Condutor> listarCondutoresCategoriaCnh(String categoriaCnh) {
         return condutorRepository.listarCondutoresCategoriaCnh(categoriaCnh);
     }
+    public Condutor listarCondutorNumeroCnh(Integer numeroCnh) {
+        return condutorRepository.listarCondutorNumeroCnh(numeroCnh);
+    }
 
     public Condutor buscarCondutorId(Integer id) {
         Optional<Condutor> condutor = null;
@@ -66,13 +69,13 @@ public class CondutorService {
         return condutorRepository.save(condutor);
     }
 
-    public Condutor buscaCondutorNome(String nome) {
-        Optional<Condutor> condutor = null;
+    public List<Condutor> buscaCondutorNome(String nome) {
+        Optional<List<Condutor>> condutores = null;
         try {
-            condutor = Optional.ofNullable(condutorRepository.buscaCondutorNome(nome));
-            return condutor.get();
+            condutores = Optional.ofNullable(condutorRepository.buscaCondutorNome(nome));
+            return condutores.get();
         } catch (NoSuchElementException noSuchElementException) {
-            return condutor.orElseThrow(() -> new ResourceNotFoundException(nome));
+            return condutores.orElseThrow(() -> new ResourceNotFoundException(nome));
         }
     }
 

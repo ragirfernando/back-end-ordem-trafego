@@ -90,11 +90,12 @@ public class OrdemTrafegoController {
         return ResponseEntity.ok().body(ordensTrafego);
     }
 
-    @GetMapping("/ordemTrafego/listarOrdensTrafegoData/{data}")
+    @GetMapping("/ordemTrafego/listarOrdensTrafegoData/{dataInicial}/{dataFinal}")
     @ApiOperation(value = "Listar ordens de tráfego por data.")
-    public ResponseEntity<List<OrdemTrafego>> listarOrdensTrafegoData(@PathVariable(value = "data") String data) throws ParseException {
-        Date date = format.parse(data);
-        List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdensTrafegoData(date);
+    public ResponseEntity<List<OrdemTrafego>> listarOrdensTrafegoData(
+            @PathVariable(value = "dataInicial") String dataInicial,
+            @PathVariable(value = "dataFinal") String dataFinal) throws ParseException {
+        List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdensTrafegoData(format.parse(dataInicial), format.parse(dataFinal));
         return ResponseEntity.ok().body(ordensTrafego);
     }
 

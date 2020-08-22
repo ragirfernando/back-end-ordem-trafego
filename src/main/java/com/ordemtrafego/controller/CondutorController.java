@@ -84,16 +84,24 @@ public class CondutorController {
         return ResponseEntity.ok().body(condutores);
     }
 
-    @GetMapping("/condutor/buscarCondutorNome/{nome}")
-    @ApiOperation(value = "Buscar um condutor por nome.")
-    public ResponseEntity<Condutor> buscaCondutorNome(@PathVariable(value = "nome") String nome) {
-        Condutor condutor = condutorService.buscaCondutorNome(nome);
+    @GetMapping("/condutor/listarCondutorNumeroCnh/{numeroCnh}")
+    @ApiOperation(value = "Buscar condutor por numero da CNH.")
+    public ResponseEntity<Condutor> listarCondutorNumeroCnh(@PathVariable(value = "numeroCnh") Integer numeroCnh) {
+        Condutor condutor = condutorService.listarCondutorNumeroCnh(numeroCnh);
         return ResponseEntity.ok().body(condutor);
     }
 
-    @GetMapping("/condutor/listarOrdensTrafegoConditor/{id}")
+    @GetMapping("/condutor/buscarCondutorNome/{nome}")
+    @ApiOperation(value = "Buscar um condutor por nome.")
+    public ResponseEntity<List<Condutor>> buscaCondutorNome(@PathVariable(value = "nome") String nome) {
+        System.out.println(nome);
+        List<Condutor> condutores = condutorService.buscaCondutorNome(nome);
+        return ResponseEntity.ok().body(condutores);
+    }
+
+    @GetMapping("/condutor/listarOrdensTrafegoCondutor/{id}")
     @ApiOperation(value = "Listar todas as ordens de tráfego que esta relacionada com o condutor, passando o id do condutor.")
-    public ResponseEntity<List<OrdemTrafego>> listarOrdensTrafegoVeiculo(@PathVariable("id") Integer id) {
+    public ResponseEntity<List<OrdemTrafego>> listarOrdensTrafegoCondutor(@PathVariable("id") Integer id) {
         List<OrdemTrafego> ordensTrafego = condutorService.listarOrdensTrafegoCondutor(id);
         return ResponseEntity.ok().body(ordensTrafego);
     }

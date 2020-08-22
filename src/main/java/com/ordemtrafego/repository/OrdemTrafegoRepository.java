@@ -14,12 +14,12 @@ public interface OrdemTrafegoRepository extends JpaRepository<OrdemTrafego, Inte
     @Query(value = "select *from ordem_trafego where veiculo_id = ?1", nativeQuery = true)
     List<OrdemTrafego> listarOrdensTrafegoVeiculo(Integer idVeiculo);
 
-    @Query(value = "select *from ordemtrafego where condutor_id = ?1",
+    @Query(value = "select *from ordem_trafego where condutor_id = ?1",
             nativeQuery = true)
     List<OrdemTrafego> listarOrdensTrafegoCondutor(Integer idCondutor);
 
-    @Query(value = "select *from ordemtrafego where data = ?1",nativeQuery = true)
-    List<OrdemTrafego> listarOrdensTrafegoData(Date data);
+    @Query(value = "select *from ordem_trafego where data BETWEEN  ?1 and  ?2",nativeQuery = true)
+    List<OrdemTrafego> listarOrdensTrafegoData(Date dataInicial, Date dataFinal);
 
     @Query(value = "SELECT *FROM ordemtrafego as ot" +
             "    INNER JOIN endereco des on ot.destino_id = des.id" +
