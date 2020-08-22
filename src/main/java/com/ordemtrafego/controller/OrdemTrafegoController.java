@@ -101,15 +101,22 @@ public class OrdemTrafegoController {
 
     @GetMapping("/ordemTrafego/buscarOrdemTrafegoOrigem/{cidadeOrigem}")
     @ApiOperation(value = "Listar ordens de tráfego por cidade de origem.")
-    public ResponseEntity<List<OrdemTrafego>> listarOrdemTrafegoCidadeOrigem(@PathVariable(value = "origem") String cidadeOrigem) {
+    public ResponseEntity<List<OrdemTrafego>> listarOrdensTrafegoCidadeOrigem(@PathVariable(value = "cidadeOrigem") String cidadeOrigem) {
         List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdensTrafegoCidadeOrigem(cidadeOrigem);
         return ResponseEntity.ok().body(ordensTrafego);
     }
 
     @GetMapping("/ordemTrafego/buscarOrdemTrafegoDestino/{cidadeDestino}")
     @ApiOperation(value = "Listar ordens de tráfego por destino.")
-    public ResponseEntity<List<OrdemTrafego>> listarOrdemTrafegoCidadeDestino(@PathVariable(value = "origem") String cidadeDestino) {
+    public ResponseEntity<List<OrdemTrafego>> listarOrdemTrafegoCidadeDestino(@PathVariable(value = "cidadeDestino") String cidadeDestino) {
         List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdensTrafegoCidadeDestino(cidadeDestino);
+        return ResponseEntity.ok().body(ordensTrafego);
+    }
+
+    @GetMapping("/ordemTrafego/buscarOrdensStatus/{status}")
+    @ApiOperation(value = "Listar ordens de tráfego por status.")
+    public ResponseEntity<List<OrdemTrafego>> listarOrdemTrafegoStatus(@PathVariable(value = "status") String status) {
+        List<OrdemTrafego> ordensTrafego = ordemTrafegoService.listarOrdemTrafegoStatus(status);
         return ResponseEntity.ok().body(ordensTrafego);
     }
 }

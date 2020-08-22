@@ -21,23 +21,26 @@ public interface OrdemTrafegoRepository extends JpaRepository<OrdemTrafego, Inte
     @Query(value = "select *from ordem_trafego where data BETWEEN  ?1 and  ?2",nativeQuery = true)
     List<OrdemTrafego> listarOrdensTrafegoData(Date dataInicial, Date dataFinal);
 
-    @Query(value = "SELECT *FROM ordemtrafego as ot" +
+    @Query(value = "SELECT *FROM ordem_trafego as ot" +
             "    INNER JOIN endereco des on ot.destino_id = des.id" +
             "    INNER JOIN endereco ori on ot.origem_id = ori.id" +
             "    INNER JOIN condutor con on ot.condutor_id = con.id" +
             "    INNER JOIN veiculo vei on ot.veiculo_id = vei.id" +
-            "    where ori.cidade = ?1",
+            "    where ori.localidade like %?1%",
             nativeQuery = true)
     List<OrdemTrafego> listarOrdensTrafegoCidadeOrigem(String cidadeOrigem);
 
-    @Query(value = "SELECT *FROM ordemtrafego as ot\n" +
+    @Query(value = "SELECT *FROM ordem_trafego as ot\n" +
             "    INNER JOIN endereco des on ot.destino_id = des.id\n" +
             "    INNER JOIN endereco ori on ot.origem_id = ori.id\n" +
             "    INNER JOIN condutor con on ot.condutor_id = con.id\n" +
             "    INNER JOIN veiculo vei on ot.veiculo_id = vei.id\n" +
-            "    where des.cidade = ?1",
+            "    where des.localidade like %?1%",
             nativeQuery = true)
     List<OrdemTrafego> listarOrdensTrafegoCidadeDestino(String destino);
+
+    @Query(value = "select *from ordem_trafego where status like %?1%", nativeQuery = true)
+    List<OrdemTrafego> listarOrdemTrafegoStatus(String status);
 
 
 

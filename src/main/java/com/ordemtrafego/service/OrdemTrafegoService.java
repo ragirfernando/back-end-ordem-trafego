@@ -102,4 +102,14 @@ public class OrdemTrafegoService {
             return ordensTrafego.orElseThrow(() -> new ResourceNotFoundException(cidadeDestino));
         }
     }
+
+    public List<OrdemTrafego> listarOrdemTrafegoStatus(String status){
+        Optional<List<OrdemTrafego>> ordensTrafego = null;
+        try {
+            ordensTrafego = Optional.ofNullable(ordemTrafegoRepository.listarOrdemTrafegoStatus(status));
+            return ordensTrafego.get();
+        } catch (NoSuchElementException noSuchElementException) {
+            return ordensTrafego.orElseThrow(() -> new ResourceNotFoundException(status));
+        }
+    }
 }
