@@ -39,7 +39,7 @@ public interface OrdemTrafegoRepository extends JpaRepository<OrdemTrafego, Inte
             nativeQuery = true)
     List<OrdemTrafego> listarOrdensTrafegoCidadeDestino(String destino);
 
-    @Query(value = "select *from ordem_trafego where status like %?1%", nativeQuery = true)
+    @Query(value = "select *from ordem_trafego where status*.m2 like %?1%", nativeQuery = true)
     List<OrdemTrafego> listarOrdemTrafegoStatus(String status);
 
 
