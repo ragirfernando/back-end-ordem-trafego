@@ -19,11 +19,11 @@
     </properties>
 
     <dependencies>
-    <!-- MIGRACOES - FLYWAY --> 		
-    <dependency> 			
-        <groupId>org.flywaydb</groupId> 			
-    <artifactId>flyway-core</artifactId> 		
-    </dependency>
+    <!-- MIGRACOES - FLYWAY -->
+        <!-- <dependency>
+             <groupId>org.flywaydb</groupId>
+         <artifactId>flyway-core</artifactId>
+         </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
