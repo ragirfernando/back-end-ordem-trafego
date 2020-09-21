@@ -1,6 +1,14 @@
 # Gestão de Frotas
 O Api para cadastro de veículos, condutor. Cadastrar ordens tráfego.
 
+## Baixar as dependências do projeto.
+```mvn clean install
+```
+
+## Executar o projeto.
+```mvn spring-boot:run
+```
+
 ## Url da para acessar API.
 [Url APi ](https://ragir-ordem-trafego.herokuapp.com/swagger-ui.html)
 
