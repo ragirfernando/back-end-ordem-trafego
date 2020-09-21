@@ -2,11 +2,13 @@
 O Api para cadastro de veículos, condutor. Cadastrar ordens tráfego.
 
 ## Baixar as dependências do projeto.
-```mvn clean install
+```
+mvn clean install
 ```
 
 ## Executar o projeto.
-```mvn spring-boot:run
+```
+mvn spring-boot:run
 ```
 
 ## Url da para acessar API.
