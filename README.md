@@ -1,10 +1,10 @@
-# Projeto para gestão de ordem de tráfego.
+# Gestão de Frotas
 O Api para cadastro de veículos, condutor. Cadastrar ordens tráfego.
 
-## Url da API.
-[Url APi ](https://ragir-ordem-trafego.herokuapp.com/swagger-ui.html).
+## Url da para acessar API.
+[Url APi ](https://ragir-ordem-trafego.herokuapp.com/swagger-ui.html)
 
-## Tecnologias usadas
+## Tecnologias usadas.
 * [Java](https://www.java.com/pt_BR/)
 * [Spring Boot](https://spring.io/projects/spring-boot)
 * [Spring Data Jpa](https://spring.io/projects/spring-data)
